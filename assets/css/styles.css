@@ -1,0 +1,238 @@
+.jumbotron {
+  background-position: center;
+  background-color: rgba(0, 0, 0, .85);
+  background-image: url(earthNight.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding: 8em;
+}
+
+.jumbotron h1 {
+  font-size: 4rem;
+  color: #171717;
+  margin-left: 10%;
+  margin-right: 10%;
+  background-color: rgba(255, 255, 255, .7);
+  border-radius: 1rem;
+  padding: .7rem;
+}
+
+.content {
+  text-align: center;
+  margin-left: 10%;
+  margin-right: 10%;
+  padding: 2rem;
+  margin-top: 1rem;
+}
+
+#ready button {
+  font-size: 1.6rem;
+  padding: .5rem;
+  margin: 1rem;
+  border-radius: .5rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
+.fa.fa-globe {
+  font-size: 1.6rem;
+  padding-right: .5rem;
+}
+
+nav .fa.fa-globe {
+  font-size: 2rem;
+  padding-right: .5rem;
+  padding-top: .3rem;
+}
+
+nav {
+  font-size: 1.4rem;
+}
+
+nav #about-button {
+  background-color: rgba(249,250,252,0.25);
+}
+
+nav .about-button:hover {
+  font-weight: 500;
+  box-shadow: 3px 3px #f9fafc;
+  cursor: pointer;
+}
+
+nav .navbar-brand {
+  font-size: 1.6rem;
+}
+
+#nav-hr {
+  margin-top: 0;
+}
+
+.navigation-clean.navbar-light .navbar-nav .nav-link.active, .navigation-clean.navbar-light .navbar-nav .nav-link.active:focus, .navigation-clean.navbar-light .navbar-nav .nav-link.active:hover {
+  color: #37434d;
+  border: 1px solid rgba(55,67,77,0.18);
+}
+
+.row {
+  padding-top: 1.5rem;
+}
+
+#map-content {
+  text-align: center;
+}
+
+#housing-titles {
+  padding-top: 2rem;
+  text-align: left;
+  font-size: 1.1rem;
+}
+
+#housing-results {
+  padding-top: 2rem;
+  text-align: left;
+  font-size: 1.1rem;
+}
+
+#map {
+  height: 400px;
+  width: 100%;
+  border: 1px solid black;
+}
+
+#add-housing {
+  margin: auto;
+  padding-left: 25px;
+  padding-right: 25px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-radius: 5%;
+  font-size: 20px;
+}
+
+#add-housing i {
+  padding-right: 9px;
+  font-size: 20px;
+}
+
+#housing-name {
+  padding: 10px;
+  margin-top: 10px;
+}
+
+.row {
+  margin-top: 20px;
+}
+
+#selected-house-col {
+  padding-right: 20px;
+}
+
+#sh-hr {
+  margin: auto;
+  max-width: 70%;
+}
+
+#spacer {
+  height: 100px;
+}
+
+.modal-body {
+  padding-left: 22px;
+  padding-right: 22px;
+}
+
+label {
+  font-size: 1.2rem;
+}
+
+label i {
+  padding-left: 8px;
+  padding-top: 5px;
+  color: rgb(97,100,101);
+  font-size: 1.2rem;
+}
+
+small {
+  line-height: 1px;
+}
+
+textarea {
+  font-size: 12px;
+}
+
+#formgroup-notes {
+  padding-right: 8px;
+}
+
+.result {
+  font-style: italic;
+}
+
+#form-invalid p {
+  font-size: 1.6rem;
+}
+
+#form-invalid .modal-title {
+  font-size: 1.5rem;
+}
+
+.selected-display {
+  background-color: rgba(211,212,228,0.04);
+  font-size: 1rem;
+}
+
+.content-row {
+  margin-right: 15px;
+}
+
+#about-modal .modal-body {
+  font-size: 1.1rem;
+}
+
+#about-modal .modal-header .modal-title {
+  font-size: 2rem;
+  text-align: center;
+}
+
+#about-modal .about-content {
+  max-width: 92%;
+  margin: auto;
+  margin-bottom: 17px;
+  font-size: 1.14rem;
+}
+
+#about-modal #add-housing-span {
+  background-color: rgba(99,99,255,0.18);
+}
+
+.highlight {
+  background-color: rgba(255,255,0,0.42);
+}
+
+#about-go-button {
+  font-size: 1.3rem;
+  border-radius: 5%;
+}
+
+#about-modal .about-section h2 {
+  font-size: 1.8rem;
+  padding-top: 4px;
+}
+
+#housing-list-col h2 {
+  padding-top: 30px;
+}
+
+
+@media (max-width: 576px) {
+  #map-content {
+    margin-left: 40px;
+    margin-right: 40px;
+  }
+}
+
+@media (max-width: 576px) {
+  #map-content .row {
+    margin-left: 0;
+    margin-right: 0;
+  }
+}

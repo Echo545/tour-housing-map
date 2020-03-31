@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="lang=en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Housing Map</title>
+    <link rel="icon" type="image/webp" sizes="1280x1280" href="assets/img/globeIcon.webp">
+    <link rel="icon" type="image/webp" sizes="1280x1280" href="assets/img/globeIcon.webp">
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700">
+    <link rel="stylesheet" href="assets/fonts/fontawesome-all.min.css">
+    <link rel="stylesheet" href="assets/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/fonts/fontawesome5-overrides.min.css">
+    <link rel="stylesheet" href="assets/css/Navigation-Clean.css">
+    <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+
+<body>
+    <nav class="navbar navbar-light navbar-expand-md navigation-clean">
+        <div class="container"><i class="fa fa-globe"></i><a class="navbar-brand text-secondary">Tour Housing Map</a><button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+            <div
+                class="collapse navbar-collapse" id="navcol-1">
+                <ul class="nav navbar-nav ml-auto">
+                    <li class="nav-item about-button" role="presentation" id="about-button"><a class="nav-link active shadow-sm about-button">About</a></li>
+                </ul>
+        </div>
+        </div>
+    </nav>
+    <hr id="nav-hr">
+    <div>
+        <div class="container" id="map-content">
+            <div class="border-secondary" id="map"></div>
+            <div class="row content-row" id="housing-display">
+                <div class="col-md-4" id="selected-house-col">
+                    <h1>Selected House:</h1>
+                    <hr id="sh-hr">
+                    <h3 id="housing-name" class="result results">No Housing Selected</h3>
+                </div>
+                <div class="col-sm-4 col-md-3 text-secondary float-sm-left selected-display" id="housing-titles">
+                    <div id="address">
+                        <p><strong>Address</strong></p>
+                    </div>
+                    <div id="contact-name">
+                        <p><strong>Contact Name</strong></p>
+                    </div>
+                    <div id="contact-contact">
+                        <p><strong>Contact Info</strong></p>
+                    </div>
+                    <div id="year">
+                        <p><strong>Year Housed</strong></p>
+                    </div>
+                    <div id="notes">
+                        <p><strong>Notes</strong></p>
+                    </div>
+                </div>
+                <div class="col-sm-8 col-md-5 text-left selected-display" id="housing-results">
+                    <div class="result">
+                        <p id="address-result" class="results">No housing selected</p>
+                    </div>
+                    <div class="result">
+                        <p id="contact-name-result" class="results">No housing selected<br></p>
+                    </div>
+                    <div class="result">
+                        <p id="contact-info-result" class="results">No housing selected<br></p>
+                    </div>
+                    <div class="result">
+                        <p id="year-result" class="results">No housing selected<br></p>
+                    </div>
+                    <div class="result">
+                        <p id="notes-result" class="results">No housing selected<br></p>
+                    </div>
+                </div>
+            </div>
+            <div class="row content-row">
+                <div class="col-md-4"><button class="btn btn-primary btn-lg text-center" id="add-housing" type="button"><i class="fas fa-plus-circle"></i>Add Housing<br></button>
+                    <div class="modal fade text-secondary" role="dialog" tabindex="-1" id="modal-popup">
+                        <div class="modal-dialog modal-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h3 class="modal-title"><strong>Add House</strong></h3><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
+                                <div class="modal-body">
+                                    <form id="modal-form" action="#">
+                                        <div class="form-group text-left"><label>Address<i class="fa fa-info-circle" data-toggle="tooltip" data-bs-tooltip="" title="Enter address in standard post office format"></i></label><input class="form-control" type="text" id="addressInput" required=""
+                                                placeholder="414 N Meridian St, Newberg, OR 97132" name="address"><small>Please provide address using the United States postal standard</small></div>
+                                        <div class="form-row">
+                                            <div class="col text-left">
+                                                <div class="form-group"><label>Contact Name<i class="fa fa-info-circle" data-toggle="tooltip" data-bs-tooltip="" title="Enter your primary contact's time (this is usually the home owner)"></i></label><input class="form-control"
+                                                        type="text" id="contactNameInput" required="" name="contactName" placeholder="Robin Baker"></div>
+                                            </div>
+                                            <div class="col text-left">
+                                                <div class="form-group"><label>Contact Info<i class="fa fa-info-circle" data-toggle="tooltip" data-bs-tooltip="" title="Enter the contact's email or phone number"></i></label><input class="form-control" type="text" id="contactInfoInput"
+                                                        required="" placeholder="(503) 538-8383" name="contactInfo"></div>
+                                            </div>
+                                        </div>
+                                        <div class="form-row justify-content-between">
+                                            <div class="col-md-3 text-left">
+                                                <div class="form-group"><label>Year Hosted<i class="fa fa-info-circle" data-toggle="tooltip" data-bs-tooltip="" title="Enter the year you stayed at this house"></i></label><input class="form-control" type="text" id="yearInput"
+                                                        required="" pattern="[0-9]{4}" name="year" placeholder="2020"></div>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <div class="form-group text-left" id="formgroup-notes"><label class="text-left">Notes<i class="fa fa-info-circle" data-toggle="tooltip" data-bs-tooltip="" title="Provide any additional notes about this house (ie capacity, hospitality, host's prefrences, etc...)"></i></label>
+                                                    <textarea
+                                                        class="form-control form-control-lg" id="notesInput" name="notes" required="" placeholder="Loves GFU Students, has a big house, is very open but also very busy"></textarea><small>Share any details which would be important to know when looking to housing, such as capacity, pets/ kids, hospitality, etc...</small></div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer"><button class="btn btn-light btn-lg" type="button" data-dismiss="modal">Close</button><button class="btn btn-primary btn-lg" id="modal-form-submit"><strong>Submit</strong></button></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal fade text-light bg-light" role="dialog" tabindex="-1" id="form-invalid">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header bg-dark">
+                                    <h4 class="modal-title"><strong>Invalid Submission</strong></h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
+                                <div class="modal-body bg-dark">
+                                    <p>Your must complete every field</p>
+                                </div>
+                                <div class="modal-footer bg-dark"><button class="btn btn-light" type="button" data-dismiss="modal">Close</button></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-8 text-sm-center" id="housing-list-col">
+                    <h2 class="text-left text-sm-center">Housing List</h2>
+                    <div class="table-responsive text-left" id="housing-table">
+                        <table class="table table-hover">
+                            <thead>
+                            </thead>
+                            <tbody id="housing-list">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="spacer"></div>
+    <div class="modal fade" role="dialog" tabindex="-1" id="about-modal">
+        <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
+            <div class="modal-content">
+                <div class="modal-header text-center">
+                    <h3 class="modal-title mx-auto w-100"><strong>Welcome to the Tour Housing Map</strong></h3><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
+                <div class="modal-body text-center">
+                    <div class="about-section">
+                        <h2 class="text-secondary">What is this?</h2>
+                        <p class="text-center text-secondary about-content">This is a tool I was inspired to develop while on tour last year with a ministry called <a href="https://carrythelove.com/" target="_blank">Carry the Love</a>. The CTL Tour, and many other missions, rely on volunteer community
+                            housing systems. Between having toured the country for multiple months and having numerous friends who regularly plan tours, I've witnessed how difficult finding reliable housing can be, especially for a large team of missionaries.&nbsp;<br><br>This
+                            tool is designed to be used by a ministry (or any organization) to connect anyone in the community in need of temporary housing to someone who would be happy to host them.</p>
+                    </div>
+                    <div class="about-section">
+                        <h2 class="text-secondary">How do I use it?</h2>
+                        <p class="text-secondary about-content">As more people in a community share the places they've stayed at, the network begins to grow. <br>If you are looking to log a place you've stayed or share a housing connection, then click the <span id="add-housing-span">add housing</span>&nbsp;button
+                            and fill out the information. If you're looking for housing, then select a marker on the map or simply pick one from the&nbsp;<span class="highlight">housing list</span>&nbsp;(I've preloaded a few examples for you.)</p>
+                    </div>
+                    <div class="about-section">
+                        <h2 class="text-secondary">A Final Note</h2>
+                        <p class="text-secondary about-content">This tool is still in its early stages of development, and my desire is to implement many new features and to expand its scope to help connect people to many types of community-based resources beyond housing. This tool is just
+                            a first step in a much greater vision that I hope will help meet needs far greater than any of us could meet on our own.</p>
+                    </div>
+                </div>
+                <div class="modal-footer"><button class="btn btn-primary btn-lg shadow" id="about-go-button" type="button" data-dismiss="modal">Let's Go</button></div>
+            </div>
+        </div>
+    </div>
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/js/bs-init.js"></script>
+    <script src="assets/js/housing.js" type="module"></script>
+    <script src="assets/js/map.js" type="module"></script>
+</body>
+
+</html>
