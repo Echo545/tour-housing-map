@@ -1,8 +1,7 @@
-export function handler(event, context, callback) {
-    // your server-side functionality
-    console.log(process.env.MAPS_API);
+exports.handler = function(event, context, callback) {
+    console.log("SUCCESS!");
     callback(null, {
-        statusCode: 200,
-        body: "Hello, World"
-        });
+    statusCode: 200,
+    body: "Hello, World"
+    });
 }
