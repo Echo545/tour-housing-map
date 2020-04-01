@@ -48,11 +48,11 @@ var getMap = function() {
   return m;
 }
 
-console.log("Get map" + getMap);
+console.log("Get map" + getMap());
 
 exports.handler = function(event, context, callback) {
     callback(null, {
       statusCode: 200,
-      body: "getMap TEST"
+      body: getMap
     });
   };
