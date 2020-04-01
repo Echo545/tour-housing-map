@@ -12,6 +12,7 @@ exports.handler = async (event, context, callback) => {
         pass(data)
       }
     )
+    console.log("response: " + response.json());
    } catch(err) {
        let error = {
          statusCode: err.statusCode || 500,
