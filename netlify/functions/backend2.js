@@ -33,9 +33,9 @@
 // const { document } = (new JSDOM('')).window;
 // global.document = document;
 
-const JSDOM = require("jsdom");
-const window = new JSDOM();
-const document = (new JSDOM("")).window;
+// const JSDOM = require("jsdom");
+// const window = new JSDOM();
+// const document = (new JSDOM("")).window;
 
 var $ = require('jquery')(window);
 
@@ -47,9 +47,11 @@ var getMap = function() {
   return m;
 }
 
+console.log("Get map" + getMap);
+
 exports.handler = function(event, context, callback) {
     callback(null, {
       statusCode: 200,
-      body: getMap
+      body: "getMap TEST"
     });
   };
