@@ -11,7 +11,9 @@ import Housing from "./housing.js";
 // This file is like a small plate of spaghetti so I               //
 // made sure to leave lots of comments :)                          //
 //                                                                 //
-// -Evan                                                           //
+// Also I build a lot of the front end using Bootstrap Studio      //
+// It's a really cool program, free for students in the            //
+// Github student pack.                                            //
 //                                                                 //
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - //
 
