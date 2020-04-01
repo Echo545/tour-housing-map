@@ -1,7 +1,8 @@
-export function handler(event, context, callback) {
-    console.log("Returned API_MAP");
+// console.log("Returning " + API_MAP);
+
+exports.handler = function(event, context, callback) {
     callback(null, {
-    statusCode: 200,
-    body: "API_MAP"
+      statusCode: 200,
+      body: `Hello ${process.env.API_MAP}`
     });
-}
+  };
