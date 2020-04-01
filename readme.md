@@ -6,7 +6,7 @@ This project is a work in progress. I'm planning on adding full backend intigrat
 
 ## Technical Details
 
-I designed the page with [Bootstrap studio](https://bootstrapstudio.io/) andmaking the  call to the Maps API with [Netlify](https://www.netlify.com/).
+I designed the page with [Bootstrap studio](https://bootstrapstudio.io/) and making the  call to the Maps API with [Netlify](https://www.netlify.com/).
 
 The code which runs on the netlify backend is located in ```netlify/functions/```
 
