@@ -46,7 +46,7 @@ const jsdom = require("jsdom");
 
 // console.log("$: " + $);
 console.log("jsdom: " + jsdom);
-const {JSDOM} = jsdom;
+const JSDOM = jsdom;
 const dom = new JSDOM(html);
 const $ = (require('jquery'))(dom.window);
 
