@@ -25,7 +25,6 @@ var housings = [];
 $(document).ready(function() {
   // Using netlify to secure my API key
   $.getScript("https://housingmap.netlify.com/.netlify/functions/backend");
-  console.log(s);
 });
 
 
