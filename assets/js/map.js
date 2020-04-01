@@ -261,7 +261,6 @@ function markHouse(map, geocoder, house) {
         map: map,
         position: results[0].geometry.location,
         title: `${house.housingName}`,
-        // label: `${house.housingName}`
         animation: google.maps.Animation.DROP
       });
 
