@@ -46,6 +46,10 @@ const jsdom = require("jsdom");
 
 // console.log("$: " + $);
 console.log("jsdom: " + jsdom);
+const {JSDOM} = jsdom;
+const dom = new JSDOM(html);
+const $ = (require('jquery'))(dom.window);
+
 
 var getMap = function() {
   var m = $.get(`https://maps.googleapis.com/maps/api/js?key=${process.env.API_TOKEN}&callback=initMap`);
