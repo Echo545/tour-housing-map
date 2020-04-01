@@ -1,5 +1,7 @@
-// console.log("Returning " + API_MAP);
+const fetch = require("node-fetch");
 
+
+// This is the code that gets run on netlify server 
 exports.handler = async (event, context, callback) => {
     const pass = (body) => {callback(null, {statusCode: 200, body: JSON.stringify(body)})}
   
