@@ -12,13 +12,8 @@
     const pass = (body) => {callback(null, {statusCode: 200, body: JSON.stringify(body)})}
   
     try {
-      let response = await fetch("https://maps.googleapis.com/maps/api/js?key=${process.env.MAPS_API}&callback=initMap", 
+      let response = await fetch(`https://maps.googleapis.com/maps/api/js?key=${process.env.MAPS_API}&callback=initMap`, 
     {
-     method: event.httpMethod,
-     headers: {
-       "Authorization": `Bearer ${process.env.API_TOKEN}`, 
-       "Content-Type": "application/json"
-    },
      body: event.body
     })
      let data = await response.json()
