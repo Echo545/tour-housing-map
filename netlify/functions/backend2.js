@@ -42,6 +42,7 @@
 // var $ = require('jquery');
 
 // TAKE 3
+console.log("connected!");
 const jsdom = require("jsdom");
 
 // // console.log("$: " + $);
