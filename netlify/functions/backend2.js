@@ -7,10 +7,10 @@
 
 // const fetch = require("node-fetch");
 
-  
+
 //   exports.handler = async (event, context, callback) => {
 //     const pass = (body) => {callback(null, {statusCode: 200, body: JSON.stringify(body)})}
-  
+
 //     try {
 //     let response = await fetch(`https://maps.googleapis.com/maps/api/js?key=${process.env.API_TOKEN}&callback=initMap`)
 //     .then((response) => {
@@ -75,9 +75,13 @@ console.log("Connect back end!");
 
 exports.handler = async (event, context) => {
   return fetch(`https://maps.googleapis.com/maps/api/js?key=${process.env.API_TOKEN}&callback=initMap`)
-    .then(r => console.log("response: " + r))
+    // .then(r => { console.log("response: " + r); })
+    .then(function (r) { 
+      console.log("response: " + r); 
+      return r; 
+    })
     .then(response => response.json())
-    .then(res => console.log("response.json(): " + res))
+    // .then(res => console.log("response.json(): " + res))
     .then(data => ({
       statusCode: 200,
       body: data
