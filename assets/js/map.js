@@ -24,7 +24,7 @@ var housings = [];
 // Call Google Maps JS API
 $(document).ready(function() {
   // Using netlify to secure my API key
-  $.getScript("https://housingmap.netlify.com/.netlify/functions/backend2");
+  $.getScript("https://housingmap.netlify.com/.netlify/functions/backend");
   console.log(s);
 });
 
@@ -126,9 +126,9 @@ function populateHousings() {
   );
   housings.push(
     new Housing({
-      address: "205 E Delaware Ave Benton Harbor, MI 49022",
-      contactName: "Dr. Sharon",
-      contactInfo: "(405) 525-1609",
+      address: "3800 Niles Rd St Joseph, MI 49085",
+      contactName: "Micah",
+      contactInfo: "(269) 429-1106",
       year: "2019",
       notes:
         "Housed us many times, lots of room, seperate genders but many houses in their network"
