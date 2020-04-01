@@ -42,11 +42,11 @@
 // var $ = require('jquery');
 
 // TAKE 3
-// const jsdom = require("jsdom");
+const jsdom = require("jsdom");
 
 // // console.log("$: " + $);
-// console.log("jsdom: " + jsdom);
-// const JSDOM = jsdom;
+console.log("jsdom: " + jsdom);
+// const {JSDOM} = jsdom;
 // const dom = new JSDOM(html);
 // const $ = (require('jquery'))(dom.window);
 
@@ -62,6 +62,6 @@ console.log("Get map" + getMap());
 exports.handler = function(event, context, callback) {
     callback(null, {
       statusCode: 200,
-      body: getMap
+      body: "getMap TEST"
     });
   };
