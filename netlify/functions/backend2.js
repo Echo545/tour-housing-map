@@ -33,9 +33,9 @@
 // const { document } = (new JSDOM('')).window;
 // global.document = document;
 
-// const JSDOM = require("jsdom");
-// const window = new JSDOM();
-// const document = (new JSDOM("")).window;
+const JSDOM = require("jsdom");
+const window = new JSDOM();
+const document = (new JSDOM("")).window;
 
 var $ = require('jquery')(window);
 
