@@ -20,7 +20,7 @@ import Housing from "./housing.js";
 var housings = [];
 
 // Call Google Maps JS API
-$(document).ready(function() {
+// $(document).ready(function() {
 
   var s = $.getScript("https://peaceful-carson-f5e0a9.netlify.com/.netlify/functions/backend");
   console.log(s);
@@ -28,7 +28,7 @@ $(document).ready(function() {
   // $.getScript(
   //   `https://maps.googleapis.com/maps/api/js?key=${process.env.MAPS_API}&callback=initMap`
   // );
-});
+// });
 
 
 function initMap() {
