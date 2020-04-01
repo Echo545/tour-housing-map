@@ -80,8 +80,12 @@ exports.handler = async (event, context) => {
       console.log("response: " + r); 
       return r; 
     })
-    .then(response => response.json())
-    // .then(res => console.log("response.json(): " + res))
+    .then(response => response.text())
+    // .then(response => response.json())
+    .then(function (r) { 
+      console.log("response text: " + r); 
+      return r; 
+    })
     .then(data => ({
       statusCode: 200,
       body: data
