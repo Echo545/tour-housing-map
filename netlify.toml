@@ -1,4 +1,8 @@
-[build] # Make sure you don't have a duplicate [build] context!
+[build]
   command = "echo 'default context'"
   functions = "netlify/functions"
   
+
+[template.environment]
+  API_URL = "your Google Maps API endpoint"
+  API_TOKEN = "your Google Maps API key"
