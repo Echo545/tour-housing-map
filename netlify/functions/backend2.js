@@ -3,6 +3,6 @@
 exports.handler = function(event, context, callback) {
     callback(null, {
       statusCode: 200,
-      body: `Hello ${API_MAP}`
+      body: `Hello ${process.env.API_MAP}`
     });
   };
