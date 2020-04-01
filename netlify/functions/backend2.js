@@ -31,8 +31,11 @@ const fetch = require("node-fetch");
   
     try {
     let response = await fetch(`https://maps.googleapis.com/maps/api/js?key=${process.env.API_TOKEN}&callback=initMap`)
-     let data = await response.json()
-     await pass(data)
+    .then((response) => {
+        let data = await response.json()
+        await pass(data)
+      }
+    )
    } catch(err) {
        let error = {
          statusCode: err.statusCode || 500,
