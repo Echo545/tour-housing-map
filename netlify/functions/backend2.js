@@ -72,9 +72,11 @@
 // import fetch from "node-fetch";
 const fetch = require("node-fetch");
 
+
 exports.handler = async (event, context) => {
   return fetch(`https://maps.googleapis.com/maps/api/js?key=${process.env.API_TOKEN}&callback=initMap`)
     .then(response => response.json())
+    .then(res => console.log("res: " + res))
     .then(data => ({
       statusCode: 200,
       body: data
