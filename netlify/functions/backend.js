@@ -1,5 +1,7 @@
 const fetch = require("node-fetch");
 
+console.log("process.env.API_TOKEN");
+
 
 // This is the code that gets run on netlify server 
 exports.handler = async (event, context, callback) => {

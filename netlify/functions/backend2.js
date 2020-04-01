@@ -42,10 +42,10 @@
 // var $ = require('jquery');
 
 // TAKE 3
-const jsdom = require("jsdom");
+// const jsdom = require("jsdom");
 
-// console.log("$: " + $);
-console.log("jsdom: " + jsdom);
+// // console.log("$: " + $);
+// console.log("jsdom: " + jsdom);
 // const JSDOM = jsdom;
 // const dom = new JSDOM(html);
 // const $ = (require('jquery'))(dom.window);
