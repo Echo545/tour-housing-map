@@ -1,6 +1,6 @@
 const fetch = require("node-fetch");
 
-console.log("process.env.API_TOKEN");
+console.log("process.env.API_TOKEN " + process.env.API_TOKEN);
 
 
 // This is the code that gets run on netlify server 
