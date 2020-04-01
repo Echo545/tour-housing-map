@@ -38,7 +38,7 @@
 // const document = (new JSDOM("")).window;
 
 // var $ = require('jquery')(window);
-var $ = require('jquery');
+var $ = require('jQuery');
 
 console.log("$: " + $);
 
