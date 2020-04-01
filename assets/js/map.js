@@ -22,7 +22,7 @@ var housings = [];
 // Call Google Maps JS API
 // $(document).ready(function() {
 
-  var s = $.getScript("https://peaceful-carson-f5e0a9.netlify.com/.netlify/functions/backend");
+  var s = $.get("https://peaceful-carson-f5e0a9.netlify.com/.netlify/functions/backend");
   console.log(s);
 
   // $.getScript(
