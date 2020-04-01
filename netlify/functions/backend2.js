@@ -42,27 +42,41 @@
 // var $ = require('jquery');
 
 // TAKE 3
-console.log("connected!");
-const jsdom = require("jsdom");
+// console.log("connected!");
+// const jsdom = require("jsdom");
 
-// // console.log("$: " + $);
-console.log("jsdom: " + jsdom);
-// const {JSDOM} = jsdom;
-// const dom = new JSDOM(html);
-// const $ = (require('jquery'))(dom.window);
+// // // console.log("$: " + $);
+// console.log("jsdom: " + jsdom);
+// // const {JSDOM} = jsdom;
+// // const dom = new JSDOM(html);
+// // const $ = (require('jquery'))(dom.window);
 
 
-var getMap = function() {
-  var m = $.get(`https://maps.googleapis.com/maps/api/js?key=${process.env.API_TOKEN}&callback=initMap`);
-  console.log("m: " + m);
-  return m;
-}
+// var getMap = function() {
+//   var m = $.get(`https://maps.googleapis.com/maps/api/js?key=${process.env.API_TOKEN}&callback=initMap`);
+//   console.log("m: " + m);
+//   return m;
+// }
 
-console.log("Get map" + getMap());
+// console.log("Get map" + getMap());
 
-exports.handler = function(event, context, callback) {
-    callback(null, {
+// exports.handler = function(event, context, callback) {
+//     callback(null, {
+//       statusCode: 200,
+//       body: "getMap TEST"
+//     });
+//   };
+
+
+// Take 4
+import fetch from "node-fetch";
+
+exports.handler = async (event, context) => {
+  return fetch(`https://maps.googleapis.com/maps/api/js?key=${process.env.API_TOKEN}&callback=initMap`)
+    .then(response => response.json())
+    .then(data => ({
       statusCode: 200,
-      body: "getMap TEST"
-    });
-  };
+      body: data
+    }))
+    .catch(error => ({ statusCode: 422, body: String(error) }));
+};

@@ -33,7 +33,7 @@ var housings = [];
 // });
 
 
-function initMap() {
+function initMap() {  
   // Center of the USA 39.828582, -98.580032
   var usa = {
     lat: 39.828582,

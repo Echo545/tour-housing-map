@@ -2,6 +2,7 @@
   "dependencies": {
     "bufferutil": "^4.0.1",
     "canvas": "^2.6.1",
+    "fetch": "^1.1.0",
     "jquery": "^3.4.1",
     "jsdom": "^16.2.2",
     "netlify-lambda": "^1.6.3",
