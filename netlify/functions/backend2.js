@@ -27,20 +27,25 @@
 //    }
 //   }
 
+// TAKE 1
 // var jsdom = require("jsdom");
 // const { JSDOM } = jsdom;
 // const { window } = new JSDOM();
 // const { document } = (new JSDOM('')).window;
 // global.document = document;
 
+// TAKE 2
 // const JSDOM = require("jsdom");
 // const window = new JSDOM();
 // const document = (new JSDOM("")).window;
-
 // var $ = require('jquery')(window);
-var $ = require('jQuery');
+// var $ = require('jquery');
 
-console.log("$: " + $);
+// TAKE 3
+const jsdom = require("jsdom");
+
+// console.log("$: " + $);
+console.log("jsdom: " + jsdom);
 
 var getMap = function() {
   var m = $.get(`https://maps.googleapis.com/maps/api/js?key=${process.env.API_TOKEN}&callback=initMap`);
