@@ -22,15 +22,11 @@ import Housing from "./housing.js";
 var housings = [];
 
 // Call Google Maps JS API
-// $(document).ready(function() {
-
-  var s = $.get("https://housingmap.netlify.com/.netlify/functions/backend");
+$(document).ready(function() {
+  // Using netlify to secure my API key
+  $.getScript("https://housingmap.netlify.com/.netlify/functions/backend2");
   console.log(s);
-
-  // $.getScript(
-  //   `https://maps.googleapis.com/maps/api/js?key=${process.env.MAPS_API}&callback=initMap`
-  // );
-// });
+});
 
 
 function initMap() {  
