@@ -30,7 +30,7 @@ const fetch = require("node-fetch");
     const pass = (body) => {callback(null, {statusCode: 200, body: JSON.stringify(body)})}
   
     try {
-    let response = await fetch(`https://maps.googleapis.com/maps/api/js?key=${process.env.MAPS_API}&callback=initMap`)
+    let response = await fetch(`https://maps.googleapis.com/maps/api/js?key=${process.env.API_TOKEN}&callback=initMap`)
      let data = await response.json()
      await pass(data)
    } catch(err) {
