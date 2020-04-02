@@ -1,5 +1,7 @@
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+// Converted to es2016 stage 1 using babeljs.io for cross compatibility
+
 class Housing {
   constructor(address, contactName, contactInfo, year, notes) {
     if (typeof address === "undefined") {
@@ -26,15 +28,15 @@ class Housing {
     this.contactName = contactName;
     this.contactInfo = contactInfo;
     this.year = year;
-    this.notes = notes; // Marker and location are set once the address has been marked on the map
+    this.notes = notes; 
 
+    // Marker and location are set once the address has been marked on the map
     this.marker = "";
-    this.location = ""; // set ID
+    this.location = "";
 
     this.id = Housing.idCounter;
     Housing.idCounter++;
-  } // this gives every housing object a unique ID
-
+  } 
 
   get location() {
     return this._location;
@@ -109,7 +111,7 @@ class Housing {
   }
 
 }
-
+// this gives every housing object a unique ID
 _defineProperty(Housing, "idCounter", 0);
 
 export default Housing;

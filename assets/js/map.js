@@ -17,7 +17,6 @@ import Housing from "./housing.js";
 //                                                                 //
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - //
 
-console.log("TEST connected");
 
 // Initialize variables
 var housings = [];
@@ -26,13 +25,11 @@ var housings = [];
 $(document).ready(function () {
   // Using netlify to secure my API key
   $.getScript("https://housingmap.netlify.com/.netlify/functions/backend");
-  console.log("TEST got script");
 
 });
 
 
 function initMap() {
-  console.log("TEST initMap");
   // Center of the USA 39.828582, -98.580032
   var usa = {
     lat: 39.828582,
