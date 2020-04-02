@@ -1,12 +1,27 @@
 class Housing {
 
-    constructor({
-        address = "421 8th St, Huntington Beach, CA 92648",
-        contactName = "Brian Brennt",
-        contactInfo = "123-998-1234",
-        year = "2018",
-        notes = "This house is the best, it's a big big house with lots of rooms" 
-    } = {}){
+    constructor(address, contactName, contactInfo, year, notes){
+
+        if (typeof address === "undefined"){
+            address = "421 8th St, Huntington Beach, CA 92648";
+        }
+
+        if(typeof contactName === "undefined"){
+            contactName = "Brian Brennt";
+        }
+
+        if(typeof contactInfo === "undefined"){
+            contactInfo = "123-998-1234";
+        }
+
+        if(typeof year === "undefined"){
+            year = "2018";
+        }
+
+        if(typeof notes === "undefined"){
+            notes = "This house is the best, it's a big big house with lots of rooms";
+        }
+
         this.address = address;
         this.contactName = contactName;
         this.contactInfo = contactInfo;

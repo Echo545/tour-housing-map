@@ -17,18 +17,22 @@ import Housing from "./housing.js";
 //                                                                 //
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - //
 
+console.log("TEST connected");
 
 // Initialize variables
 var housings = [];
 
 // Call Google Maps JS API
-$(document).ready(function() {
+$(document).ready(function () {
   // Using netlify to secure my API key
   $.getScript("https://housingmap.netlify.com/.netlify/functions/backend");
+  console.log("TEST got script");
+
 });
 
 
-function initMap() {  
+function initMap() {
+  console.log("TEST initMap");
   // Center of the USA 39.828582, -98.580032
   var usa = {
     lat: 39.828582,
@@ -46,19 +50,19 @@ function initMap() {
   var geocoder = new google.maps.Geocoder();
 
   // Set button listeners
-  $(document).ready(function() {
+  $(document).ready(function () {
 
     // Setup form
-    $("#add-housing").click(function() {
+    $("#add-housing").click(function () {
       $("#modal-popup").modal("show");
     });
 
-    $("#modal-form-submit").click(function() {
+    $("#modal-form-submit").click(function () {
       processForm(map, geocoder);
     });
 
     // Setup about
-    $("#about-button").click(function() {
+    $("#about-button").click(function () {
       $("#about-modal").modal("show");
     });
 
@@ -76,62 +80,58 @@ function initMap() {
 function populateHousings() {
   housings.push(new Housing());
   housings.push(
-    new Housing({
-      address: "75-5944 Kuakini Hwy Kailua-Kona, HI 96740",
-      contactName: "Evan",
-      contactInfo: "evansemail.gmail.com",
-      year: "2019",
-      notes: "small house but great family, very happy to help, did CRX 2018"
-    })
+    new Housing(
+      "75-5944 Kuakini Hwy Kailua-Kona, HI 96740",
+      "Evan",
+      "evansemail.gmail.com",
+      "2019",
+      "small house but great family, very happy to help, did CRX 2018"
+    )
   );
   housings.push(
-    new Housing({
-      address: "414 N Meridian St, Newberg, OR 97132",
-      contactName: "Robin Baker",
-      contactInfo: "(503) 538-8383",
-      year: "2020",
-      notes: "Great big house, cool family, loves George Fox students and Jesus"
-    })
+    new Housing(
+      "414 N Meridian St, Newberg, OR 97132",
+      "Robin Baker",
+      "(503) 538-8383",
+      "2020",
+      "Great big house, cool family, loves George Fox students and Jesus"
+    )
   );
   housings.push(
-    new Housing({
-      address: "713 E Airtex Dr, Houston, TX 77073",
-      contactName: "Eric",
-      contactInfo: "(281) 821-2222",
-      year: "2020",
-      notes:
-        "Church pastor, hosted us for many years! Amazing people with many connections"
-    })
+    new Housing(
+      "713 E Airtex Dr, Houston, TX 77073",
+      "Eric",
+      "(281) 821-2222",
+      "2020",
+      "Church pastor, hosted us for many years! Amazing people with many connections"
+    )
   );
   housings.push(
-    new Housing({
-      address: "4484 N John Young Pkwy, Orlando, FL 32804",
-      contactName: "Amy",
-      contactInfo: "(407) 246-0001",
-      year: "2019",
-      notes:
-        "Large church with many connections, hosted The Send pre-rallies. Very hospitable and practical"
-    })
+    new Housing(
+      "4484 N John Young Pkwy, Orlando, FL 32804",
+      "Amy",
+      "(407) 246-0001",
+      "2019",
+      "Large church with many connections, hosted The Send pre-rallies. Very hospitable and practical"
+    )
   );
   housings.push(
-    new Housing({
-      address: "4850 Ward Rd STE 201, Wheat Ridge, CO 80033",
-      contactName: "Greg Steir",
-      contactInfo: "(303) 425-1606",
-      year: "2017",
-      notes:
-        "Has lots of connections, great housing, passionate about evangelism"
-    })
+    new Housing(
+      "4850 Ward Rd STE 201, Wheat Ridge, CO 80033",
+      "Greg Steir",
+      "(303) 425-1606",
+      "2017",
+      "Has lots of connections, great housing, passionate about evangelism"
+    )
   );
   housings.push(
-    new Housing({
-      address: "3800 Niles Rd St Joseph, MI 49085",
-      contactName: "Micah",
-      contactInfo: "(269) 429-1106",
-      year: "2019",
-      notes:
-        "Housed us many times, lots of room, seperate genders but many houses in their network"
-    })
+    new Housing(
+      "3800 Niles Rd St Joseph, MI 49085",
+      "Micah",
+      "(269) 429-1106",
+      "2019",
+      "Housed us many times, lots of room, seperate genders but many houses in their network"
+    )
   );
 }
 
@@ -144,7 +144,7 @@ function selectHousing(map, geocoder, housing) {
   } else {
 
     // smoothly fade out old selection
-    $(".result").fadeOut(function(){
+    $(".result").fadeOut(function () {
       // display selected house:
       $("#address-result").text(`${housing.address}`);
       $("#contact-name-result").text(`${housing.contactName}`);
@@ -152,10 +152,10 @@ function selectHousing(map, geocoder, housing) {
       $("#year-result").text(`${housing.year}`);
       $("#notes-result").text(`${housing.notes}`);
       $("#housing-name").text(`${housing.housingName}`);
-  
+
       // nicely fade in selection
       $(".result").fadeIn();
-  
+
       // mark house if its missing a marker
       if (housing.marker == "") {
         markHouse(map, geocoder, housing);
@@ -174,7 +174,7 @@ function displayHousingList(map, geocoder) {
   for (var hs of housings) {
 
     // marks house only if it hasn't been marked yet
-    if (hs.marker == ""){
+    if (hs.marker == "") {
       markHouse(map, geocoder, hs);
     }
     appendHousingListDisplay(map, geocoder, hs);
@@ -191,16 +191,16 @@ function loadSelectedHousing(map, loadHousing) {
     if (cnt >= max) {
       return;
     } else {
-      var z = google.maps.event.addListener(map, "zoom_changed", function(event) {
+      var z = google.maps.event.addListener(map, "zoom_changed", function (event) {
         google.maps.event.removeListener(z);
         smoothZoom(map, max, cnt + 1);
       });
-      setTimeout(function() {
+      setTimeout(function () {
         map.setZoom(cnt);
       }, 80);
     }
   }
-  
+
 
   if (loadHousing == -1) {
     alert("Can't load selected housing: " + loadHousing);
@@ -223,8 +223,8 @@ function appendHousingListDisplay(map, geocoder, appendedHousing) {
   );
 
   // Click event listener to select housing from list
-  $(document).ready(function() {
-    $(`#item-${appendedHousing.id}`).click(function() {
+  $(document).ready(function () {
+    $(`#item-${appendedHousing.id}`).click(function () {
       selectHousing(map, geocoder, getHousingByID(appendedHousing.id));
     });
   });
@@ -247,7 +247,7 @@ function getHousingByID(id) {
 
 function markHouse(map, geocoder, house) {
   // lookup (geocode) address
-  geocoder.geocode({ address: house.address }, function(results, status) {
+  geocoder.geocode({ address: house.address }, function (results, status) {
     // markResults is returned with marker data which gets processed whenever a new housing is marked
     var markResults;
 
@@ -269,7 +269,7 @@ function markHouse(map, geocoder, house) {
       house.location = location;
 
       // add listener to marker to select house on click
-      google.maps.event.addListener(marker, "click", function() {
+      google.maps.event.addListener(marker, "click", function () {
         selectHousing(map, geocoder, house);
       });
 
@@ -323,13 +323,13 @@ function processForm(map, geocoder) {
     $("#modal-form").trigger("reset");
 
     // create new housing object from given inputs
-    var userSubmittedHouse = new Housing({
-      address: addressInput,
-      contactName: contactNameInput,
-      contactInfo: contactInfoInput,
-      year: yearInput,
-      notes: notesInput
-    });
+    var userSubmittedHouse = new Housing(
+      addressInput,
+      contactNameInput,
+      contactInfoInput,
+      yearInput,
+      notesInput
+    );
 
     // house needs to be marked before it can be selected (and mapped)
     markHouse(map, geocoder, userSubmittedHouse);
