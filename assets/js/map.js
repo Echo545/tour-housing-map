@@ -1,4 +1,4 @@
-// import Housing from "./housing.js";
+import Housing from "./housing.js";
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - //
 //                                                                 //
