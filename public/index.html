@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
+    />
+    <title>Housing Map</title>
+
+    <script src="/assets/js/jquery.min.js"></script>
+
+    <!-- update the version number as needed -->
+    <script defer src="/__/firebase/7.14.1/firebase-app.js"></script>
+    <!-- include only the Firebase features as you need -->
+    <script defer src="/__/firebase/7.14.1/firebase-auth.js"></script>
+    <script defer src="/__/firebase/7.14.1/firebase-database.js"></script>
+    <script defer src="/__/firebase/7.14.1/firebase-messaging.js"></script>
+    <script defer src="/__/firebase/7.14.1/firebase-storage.js"></script>
+    <!-- initialize the SDK after all desired features are loaded -->
+    <script defer src="/__/firebase/init.js"></script>
+
+    <!-- Firebase UI setup -->
+    <script
+      defer
+      src="https://www.gstatic.com/firebasejs/ui/4.5.0/firebase-ui-auth.js"
+    ></script>
+
+    <!-- Firebase Styles -->
+    <link
+      type="text/css"
+      rel="stylesheet"
+      href="https://www.gstatic.com/firebasejs/ui/4.5.0/firebase-ui-auth.css"
+    />
+
+    <link
+      rel="icon"
+      type="image/webp"
+      sizes="1280x1280"
+      href="/assets/img/globeIcon.webp"
+    />
+    <link
+      rel="icon"
+      type="image/webp"
+      sizes="1280x1280"
+      href="/assets/img/globeIcon.webp"
+    />
+    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700"
+    />
+    <link rel="stylesheet" href="/assets/fonts/fontawesome-all.min.css" />
+    <link rel="stylesheet" href="/assets/fonts/font-awesome.min.css" />
+    <link rel="stylesheet" href="/assets/fonts/fontawesome5-overrides.min.css" />
+    <link rel="stylesheet" href="/assets/css/Navigation-Clean.css" />
+    <link rel="stylesheet" href="/assets/css/styles.css" />
+  </head>
+
+  <body>
+    <!-- Nav bar -->
+    <nav class="navbar navbar-light navbar-expand-md navigation-clean">
+      <div class="container">
+        <i class="fa fa-globe"></i
+        ><a class="navbar-brand text-secondary">Tour Housing Map</a
+        ><button
+          data-toggle="collapse"
+          class="navbar-toggler"
+          data-target="#navcol-1"
+        >
+          <span class="sr-only">Toggle navigation</span
+          ><span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navcol-1">
+          <ul class="nav navbar-nav ml-auto">
+            <li
+              class="nav-item nav-button"
+              role="presentation"
+              id="about-button"
+            >
+              <a class="nav-link active shadow-sm nav-button">About</a>
+            </li>
+            <li
+              class="nav-item nav-button  logged-out"
+              role="presentation"
+              id="login-button"
+            >
+              <a class="nav-link active shadow-sm nav-button"
+                >Login</a
+              >
+            </li>
+            <li
+              class="nav-item nav-button logged-out"
+              role="presentation"
+              id="signup-button"
+            >
+              <a class="nav-link active shadow-sm nav-button"
+                >Signup</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <hr id="nav-hr" />
+    <!-- Login Modal -->
+    <div
+      class="modal fade text-center"
+      role="dialog"
+      tabindex="-1"
+      id="login-modal"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header text-center">
+            <h4 class="modal-title text-center col-12">Login</h4>
+          </div>
+          <div class="modal-body">
+            <!-- Firebase Auth -->
+            <div id="firebaseui-auth-container" class="logged-out"></div>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-light" type="button" data-dismiss="modal">
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <!-- Logged Out Content -->
+      <div class="container text-center d-xl-flex justify-content-xl-center logged-out">
+        <div id="logged-out-content">
+          <div class="spacer"></div>
+          <h1>Welcome to the Tour Housing Map</h1>
+          <div class="spacer">
+            <hr style="color: #2bddf5;" />
+          </div>
+          <h4 style="opacity: 0.93;">Please login or signup to continue</h4>
+          <div class="spacer"></div>
+          <p id="class-notice">
+            <em>
+              If you are here with CSIS304 go ahead and create an account by signing up.
+              You don't have to use a valid email when making an account, but make sure to 
+              remember your password if you want to try logging in again.
+            </em>
+          </p>
+        </div>
+      </div>
+
+    <div id="spacer"></div>
+    <!-- About Modal -->
+    <div class="modal fade" role="dialog" tabindex="-1" id="about-modal">
+      <div
+        class="modal-dialog modal-lg modal-dialog-scrollable"
+        role="document"
+      >
+        <div class="modal-content">
+          <div class="modal-header text-center">
+            <h3 class="modal-title mx-auto w-100">
+              <strong>Welcome to the Tour Housing Map</strong>
+            </h3>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body text-center">
+            <div class="about-section">
+              <h2 class="text-secondary">What is this?</h2>
+              <p class="text-center text-secondary about-content">
+                This is a tool I was inspired to develop while on tour last year
+                with a ministry called
+                <a href="https://carrythelove.com/" target="_blank"
+                  >Carry the Love</a
+                >. The CTL Tour, and many other missions, rely on volunteer
+                community housing systems. Between having toured the country for
+                multiple months and having numerous friends who regularly plan
+                tours, I've witnessed how difficult finding reliable housing can
+                be, especially for a large team of missionaries.&nbsp;<br /><br />This
+                tool is designed to be used by a ministry (or any organization)
+                to connect anyone in the community in need of temporary housing
+                to someone who would be happy to host them.
+              </p>
+            </div>
+            <div class="about-section">
+              <h2 class="text-secondary">How do I use it?</h2>
+              <p class="text-secondary about-content">
+                As more people in a community share the places they've stayed
+                at, the network begins to grow. <br />If you are looking to log
+                a place you've stayed or share a housing connection, then click
+                the <span id="add-housing-span">add housing</span>&nbsp;button
+                and fill out the information. If you're looking for housing,
+                then select a marker on the map or simply pick one from
+                the&nbsp;<span class="highlight">housing list</span>&nbsp;(I've
+                preloaded a few examples for you.)
+              </p>
+            </div>
+            <div class="about-section">
+              <h2 class="text-secondary">A Final Note</h2>
+              <p class="text-secondary about-content">
+                This tool is still in its early stages of development, and my
+                desire is to implement many new features and to expand its scope
+                to help connect people to many types of community-based
+                resources beyond housing. This tool is just a first step in a
+                much greater vision that I hope will help meet needs far greater
+                than any of us could meet on our own.
+              </p>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              class="btn btn-primary btn-lg shadow"
+              id="about-go-button"
+              type="button"
+              data-dismiss="modal"
+            >
+              Let's Go
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Signup Modal -->
+    <div class="modal fade text-center" role="dialog" tabindex="-1" id="signup-modal">
+      <div class="modal-dialog" role="document">
+          <div class="modal-content">
+              <div class="modal-header text-center border-light">
+                  <div class="col-12">
+                      <h4 class="modal-title text-center">Sign Up</h4>
+                  </div>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="x-button">
+                    <span aria-hidden="true">×</span>
+                  </button>
+                </div>
+              <div class="modal-body">
+                  <form class="text-left" id="signup-form">
+                      <div class="form-group">
+                        <label class="text-center d-xl-flex justify-content-xl-start">Email</label>
+                        <input class="border-info form-control" type="email" id="email-input" name="email" placeholder="email@gmail.com" required="">
+                      </div>
+                      <div class="form-group">
+                        <label class="text-center d-xl-flex justify-content-xl-start">Password</label>
+                        <input class="border-info form-control" id="password-input" type="password" required="" minlength="6" maxlength="64" placeholder="********">
+                      </div>
+                      <div class="form-group">
+                        <label>Display Name</label>
+                        <input type="text" class="border-info form-control" id="display-name-input" placeholder="Robin" required minlength="1" maxlength="64" />
+                      </div>
+                      <label>
+                        Group 
+                        <i class="fa fa-info-circle" data-toggle="tooltip" data-bs-tooltip="" id="group-info" style="opacity: 0.76;" title="In the future users will be able to create their own groups which will require individual invitations to join">
+                        </i>
+                      </label>
+                      <div class="form-group d-inline-flex d-xl-flex justify-content-xl-start align-items-xl-start">
+                        <select class="border-info custom-select col-4" name="group-selection" required="" id="group-selection">
+                          <optgroup label="Group">
+                            <option value="CSIS304">CSIS304</option>
+                          </optgroup>
+                        </select>
+                          <p class="text-left" id="group-note">
+                            Note: your group cannot be changed once set, and all houses you submit will be added to your group's shared list.
+                          </p>
+                      </div>
+                      <div class="d-xl-flex justify-content-xl-end">
+                        <button class="btn btn-primary" type="submit">Sign Up</button>
+                      </div>
+                  </form>
+              </div>
+          </div>
+    </div>
+    <!-- Custom inits -->
+    <script defer src="/assets/js/auth.js" type="module"></script>
+    <script defer src="/assets/js/page-init.js" type="module"></script>
+
+    <script src="/assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/assets/js/bs-init.js"></script>
+    <!-- <script src="/assets/js/housing.js" type="module"></script> -->
+    <!-- <script src="/assets/js/map.js" type="module"></script> -->
+    <script>
+      $("#about-button").click(function () {
+        $("#about-modal").modal("show");
+      });
+    </script>
+  </body>
+</html>

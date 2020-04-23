@@ -1,11 +1,11 @@
 import Housing from "./housing.js";
+import Auth from "./auth.js";
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - //
 //                                                                 //
-// This project was built with the Google Maps API.                //
-// In the future I plan to add to it by connecting it to Firebase  //
-// and implementing user accounts, housing rating,                 //
-// better address validation, and a sort feature.                  //
+// This project was built with the Google Maps API & Firebae       //
+// In the future I plan to implement housing rating,               //
+// better address validation, sorting, and group verification.     //
 //                                                                 //
 // After coding this I now understand how weird JS is.             //
 // This file is like a small plate of spaghetti so I               //
@@ -19,10 +19,18 @@ import Housing from "./housing.js";
 
 
 // Initialize variables
+const auth = new Auth();
 var housings = [];
+var map;
+var geocoder;
 
 // Call Google Maps JS API
 $(document).ready(function () {
+  // Setup about
+  $("#about-button").click(function () {
+    $("#about-modal").modal("show");
+  });
+
   // Using netlify to secure my API key
   $.getScript("https://housingmap.netlify.com/.netlify/functions/backend");
 
@@ -37,14 +45,14 @@ function initMap() {
   };
 
   // The map, centered at usa, zoomed out
-  var map = new google.maps.Map(document.getElementById("map"), {
+  map = new google.maps.Map(document.getElementById("map"), {
     zoom: 4,
     streetViewControl: false,
     center: usa
   });
 
   // create new geocoder
-  var geocoder = new google.maps.Geocoder();
+  geocoder = new google.maps.Geocoder();
 
   // Set button listeners
   $(document).ready(function () {
@@ -58,78 +66,9 @@ function initMap() {
       processForm(map, geocoder);
     });
 
-    // Setup about
-    $("#about-button").click(function () {
-      $("#about-modal").modal("show");
-    });
-
-    $("#about-modal").modal("show");
   });
 
-  // load initial housing data
-  populateHousings();
-
-  // display all houses from housings[]
-  displayHousingList(map, geocoder);
-}
-
-
-function populateHousings() {
-  housings.push(new Housing());
-  housings.push(
-    new Housing(
-      "75-5944 Kuakini Hwy Kailua-Kona, HI 96740",
-      "Evan",
-      "evansemail.gmail.com",
-      "2019",
-      "small house but great family, very happy to help, did CRX 2018"
-    )
-  );
-  housings.push(
-    new Housing(
-      "414 N Meridian St, Newberg, OR 97132",
-      "Robin Baker",
-      "(503) 538-8383",
-      "2020",
-      "Great big house, cool family, loves George Fox students and Jesus"
-    )
-  );
-  housings.push(
-    new Housing(
-      "713 E Airtex Dr, Houston, TX 77073",
-      "Eric",
-      "(281) 821-2222",
-      "2020",
-      "Church pastor, hosted us for many years! Amazing people with many connections"
-    )
-  );
-  housings.push(
-    new Housing(
-      "4484 N John Young Pkwy, Orlando, FL 32804",
-      "Amy",
-      "(407) 246-0001",
-      "2019",
-      "Large church with many connections, hosted The Send pre-rallies. Very hospitable and practical"
-    )
-  );
-  housings.push(
-    new Housing(
-      "4850 Ward Rd STE 201, Wheat Ridge, CO 80033",
-      "Greg Steir",
-      "(303) 425-1606",
-      "2017",
-      "Has lots of connections, great housing, passionate about evangelism"
-    )
-  );
-  housings.push(
-    new Housing(
-      "3800 Niles Rd St Joseph, MI 49085",
-      "Micah",
-      "(269) 429-1106",
-      "2019",
-      "Housed us many times, lots of room, seperate genders but many houses in their network"
-    )
-  );
+  loadHousingDB(map, geocoder);
 }
 
 
@@ -149,13 +88,14 @@ function selectHousing(map, geocoder, housing) {
       $("#year-result").text(`${housing.year}`);
       $("#notes-result").text(`${housing.notes}`);
       $("#housing-name").text(`${housing.housingName}`);
+      $("#submitter-result").text(`${housing.submitter}`);
 
       // nicely fade in selection
       $(".result").fadeIn();
 
       // mark house if its missing a marker
       if (housing.marker == "") {
-        markHouse(map, geocoder, housing);
+        markHouse(map, geocoder, housing, function(){});
       }
       // Displays selected housing on map
       loadSelectedHousing(map, housing);
@@ -163,19 +103,30 @@ function selectHousing(map, geocoder, housing) {
   }
 }
 
+function loadHousingCallback(houses){
+  // var dbHousingList = window.dbHouses;
+  var dbHousingList = houses;
 
-function displayHousingList(map, geocoder) {
-  // generates and displays the housing list based on housings[]
-  // this should only be called once in initialization
+  for (var h of dbHousingList) {
+    housings.push(h);
+  }
 
   for (var hs of housings) {
-
-    // marks house only if it hasn't been marked yet
-    if (hs.marker == "") {
-      markHouse(map, geocoder, hs);
-    }
+    markHouse(map, geocoder, hs, function(){});
     appendHousingListDisplay(map, geocoder, hs);
   }
+}
+
+
+/**
+ * Calls loadHousingCallback with a complete list of houses from the DB
+ * 
+ * @param {*} map 
+ * @param {*} geocoder 
+ */
+function loadHousingDB(map, geocoder) {
+
+  var dbHousingList = auth.readHousingList(loadHousingCallback);
 }
 
 
@@ -205,8 +156,13 @@ function loadSelectedHousing(map, loadHousing) {
     const ZOOMLEVEL = 15;
 
     // focus map on marker
-    map.panTo(loadHousing.marker.getPosition());
-    smoothZoom(map, ZOOMLEVEL, map.getZoom());
+    // map.panTo(loadHousing.geoResults[0].geometry.location);
+    auth.getGeoData(loadHousing.address, loadHousing, function(h, ac, gResults){
+
+      map.panTo(gResults.geoResults[0].geometry.location);
+      smoothZoom(map, ZOOMLEVEL, map.getZoom());
+
+    }, function(){});
   }
 }
 
@@ -222,18 +178,19 @@ function appendHousingListDisplay(map, geocoder, appendedHousing) {
   // Click event listener to select housing from list
   $(document).ready(function () {
     $(`#item-${appendedHousing.id}`).click(function () {
-      selectHousing(map, geocoder, getHousingByID(appendedHousing.id));
+      // selectHousing(map, geocoder, getHousingByAddress(appendedHousing.address));
+      selectHousing(map, geocoder, appendedHousing);
     });
   });
 }
 
 
-function getHousingByID(id) {
+function getHousingByAddress(ad) {
   // search housings by id
   var result = -1;
 
   for (var hs of housings) {
-    if (hs.id == id) {
+    if (hs.address == ad) {
       result = hs;
     }
   }
@@ -242,45 +199,99 @@ function getHousingByID(id) {
 }
 
 
-function markHouse(map, geocoder, house) {
-  // lookup (geocode) address
-  geocoder.geocode({ address: house.address }, function (results, status) {
-    // markResults is returned with marker data which gets processed whenever a new housing is marked
-    var markResults;
+/**
+ * This callback is used to process exisitng geoData
+ * 
+ * @param {House} house 
+ * @param {function} callback 
+ * @param {array} existingGeoData 
+ */
+function markHouseCallback(house, callback, existingGeoData){
 
-    if (status === "OK") {
-      // center map on location
-      var location = results[0].geometry.location;
-      map.setCenter(location);
+  var markResults = [-1, -1];
+  var location;
+  var marker;
 
-      // create new marker with posistion from address lookup
-      var marker = new google.maps.Marker({
-        map: map,
-        position: results[0].geometry.location,
-        title: `${house.housingName}`,
-        animation: google.maps.Animation.DROP
-      });
+  if (existingGeoData) {
+    location = existingGeoData.geoResults[0].geometry.location;
+    marker = existingGeoData.marker;
 
-      // add marker and location to house
-      house.marker = marker;
-      house.location = location;
+    house.geoResults = existingGeoData;
 
-      // add listener to marker to select house on click
-      google.maps.event.addListener(marker, "click", function () {
-        selectHousing(map, geocoder, house);
-      });
+    // center map:
+    map.setCenter(location);
 
-      markResults = [marker, location];
-    } else {
-      // alert("Geocode was not successful for the following reason: " + status);
-      console.log("ERROR STATUS: " + status);
-      markResults = [-1, -1];
-    }
+    // mark map:
+    marker = new google.maps.Marker({
+      map: map,
+      position: location,
+      title: `${house.housingName}`,
+      animation: google.maps.Animation.DROP
+    });
 
-    // I originally attempted to return markResults, but ran into scope problems
-    // so now its a global variable only refrenced in processForm()
+    // add marker event listener
+    google.maps.event.addListener(marker, "click", function () {
+      selectHousing(map, geocoder, house);
+    });
+
+    // update mark results
+    markResults = [marker, house.geoResults];
+
     window.markResults = markResults;
-  });
+    if (callback) {
+      callback(markResults);
+    }
+    else{
+      console.log("no callback provided!");
+    }
+  }
+  else {
+
+    // lookup (geocode) address
+    geocoder.geocode({ address: house.address }, function (results, status) {
+      // markResults is returned with marker data which gets processed whenever a new housing is marked
+
+      if (status === "OK") {
+        // center map on location
+        location = results[0].geometry.location;
+        map.setCenter(location);
+
+        // create new marker with posistion from address lookup
+        marker = new google.maps.Marker({
+          map: map,
+          position: results[0].geometry.location,
+          title: `${house.housingName}`,
+          animation: google.maps.Animation.DROP
+        });
+
+        // add marker and location to house
+        house.marker = marker;
+        house.geoResults = results;
+
+        // add listener to marker to select house on click
+        google.maps.event.addListener(marker, "click", function () {
+          selectHousing(map, geocoder, house);
+        });
+
+        markResults = [marker, results];
+
+        window.markResults = markResults;
+        callback(markResults);
+      }
+      else {
+        // alert("Geocode was not successful for the following reason: " + status);
+        console.log("ERROR STATUS: " + status);
+        window.markResults = [-1, -1];
+      }
+    });
+  }
+}
+
+
+function markHouse(map, geocoder, house, callback) {
+  // only geocode if address isn't already in DB
+
+  var existingGeoData = auth.getGeoData(house.address, house, markHouseCallback, callback);
 }
 
 
@@ -307,6 +318,7 @@ function processForm(map, geocoder) {
     if (i == "") {
       incomplete = true;
     }
+    // more validation can be added here
   }
 
   if (incomplete) {
@@ -329,17 +341,27 @@ function processForm(map, geocoder) {
     );
 
     // house needs to be marked before it can be selected (and mapped)
-    markHouse(map, geocoder, userSubmittedHouse);
-    var markData = window.markResults;
+    markHouse(map, geocoder, userSubmittedHouse, function(markData){
 
-    // update housing with its new mark data before adding to housings
-    userSubmittedHouse.marker = markData[0];
-    userSubmittedHouse.location = markData[1];
-
-    // add to housings list and select newly created house
-    housings.push(userSubmittedHouse);
-    selectHousing(map, geocoder, userSubmittedHouse);
-    appendHousingListDisplay(map, geocoder, userSubmittedHouse);
+      // var markData = window.markResults;
+      
+      // update housing with its new mark data before adding to housings
+      userSubmittedHouse.marker = markData[0];
+      userSubmittedHouse.geoResults = markData[1];
+      
+      // update userSubmittedHouse with submitter info
+      userSubmittedHouse.submitter = auth.currentUser.displayName;
+      
+      // add to DB
+      auth.addHouseToGroupDB(userSubmittedHouse);
+      
+      // add to housings list
+      housings.push(userSubmittedHouse);
+      
+      // select new house & add to display
+      selectHousing(map, geocoder, userSubmittedHouse);
+      appendHousingListDisplay(map, geocoder, userSubmittedHouse);
+    });
   }
 }
 

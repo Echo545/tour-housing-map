@@ -49,14 +49,15 @@ nav {
   font-size: 1.4rem;
 }
 
-nav #about-button {
-  background-color: rgba(249,250,252,0.25);
-}
-
-nav .about-button:hover {
+nav .nav-button:hover {
   font-weight: 500;
   box-shadow: 3px 3px #f9fafc;
   cursor: pointer;
+}
+
+nav .nav-button {
+  margin-left: 14px;
+  background-color: rgba(249,250,252,0.25);
 }
 
 nav .navbar-brand {
@@ -84,12 +85,16 @@ nav .navbar-brand {
   padding-top: 2rem;
   text-align: left;
   font-size: 1.1rem;
+
+  box-shadow:rgba(0, 0, 0, 0.3) -1px 1px 0px 0px;
 }
 
 #housing-results {
   padding-top: 2rem;
   text-align: left;
   font-size: 1.1rem;
+
+  box-shadow:rgba(0, 0, 0, 0.3) 1px -1px 0px 0px;
 }
 
 #map {
@@ -222,7 +227,6 @@ textarea {
   padding-top: 30px;
 }
 
-
 @media (max-width: 576px) {
   #map-content {
     margin-left: 40px;
@@ -235,4 +239,35 @@ textarea {
     margin-left: 0;
     margin-right: 0;
   }
+}
+
+
+/* Logged off content */
+
+#x-button {
+  padding-left: 0;
+  margin-left: -17px;
+}
+
+.spacer {
+  height: 60px;
+}
+
+.container.text-center {
+  max-width: 80%;
+}
+
+#group-note {
+  padding-left: 5%;
+  font-size: .91rem;
+  padding-right: 4%;
+}
+
+#class-notice {
+  max-width: 700px;
+  margin: auto;
+}
+
+#logout-button {
+  margin-left: 0px;
 }

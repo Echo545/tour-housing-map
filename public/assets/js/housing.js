@@ -28,18 +28,23 @@ class Housing {
     this.contactName = contactName;
     this.contactInfo = contactInfo;
     this.year = year;
-    this.notes = notes; 
+    this.notes = notes;
 
-    // Marker and location are set once the address has been marked on the map
+    // Marker and geoResults are set once the address has been marked on the map
     this.marker = "";
-    this.location = "";
+    this.geoResults = "";
+    this.submitter = "";
 
     this.id = Housing.idCounter;
     Housing.idCounter++;
-  } 
+  }
 
-  get location() {
-    return this._location;
+  get submitter() {
+    return this._submitter;
+  }
+
+  get geoResults() {
+    return this._geoResults;
   }
 
   get address() {
@@ -74,8 +79,12 @@ class Housing {
     return this._id;
   }
 
-  set location(loc) {
-    this._location = loc;
+  set submitter(sub) {
+    this._submitter = sub;
+  }
+
+  set geoResults(geo) {
+    this._geoResults = geo;
   }
 
   set address(addr) {
@@ -107,7 +116,7 @@ class Housing {
   }
 
   toString() {
-    return `id: ${this.id}\nname: ${this.housingName}\nlocation: ${this.location}\naddress: ${this.address}\ncontact name: ${this.contactName}\ncontact info: ${this.contactInfo}\nyear: ${this.year}\nnotes: ${this.notes}`;
+    return `id: ${this.id}\nname: ${this.housingName}\ngeoResults: ${this.geoResults}\naddress: ${this.address}\ncontact name: ${this.contactName}\ncontact info: ${this.contactInfo}\nyear: ${this.year}\nnotes: ${this.notes}\nsubmitter: ${this.submitter}`;
   }
 
 }
